@@ -1,0 +1,33 @@
+@startuml
+
+skinparam linetype ortho
+
+entity "Rider" as rider {
+	* **rider_id : bigint <<generated>>**
+	--
+	*name : varchar(30)
+	*age : smallint
+	sex : char
+}
+
+entity "Race riders" as race_riders {
+	*rider_id : bigint
+	*race_id : bigint
+}
+
+entity "League" as league {
+	* **league_id : bigint**
+	--
+	* name : varchar(200)
+}
+
+entity "Race" as race {
+	* **race_id : bigint**
+	--
+	* name : varchar(200)
+}
+
+rider |o--o{ race_riders
+race_riders }o--o| race
+race }|--o| league
+@enduml
