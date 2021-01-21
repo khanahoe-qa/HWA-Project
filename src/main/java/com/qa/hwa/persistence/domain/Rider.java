@@ -1,12 +1,18 @@
 package com.qa.hwa.persistence.domain;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.Id;
 
 import lombok.AllArgsConstructor;
@@ -33,4 +39,8 @@ public class Rider {
 	
 	@Pattern(regexp = "[mfMF{1}")
 	private Character sex;
+	
+	@ManyToMany(mappedBy = "races", fetch = FetchType.EAGER)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private List<Race> races;
 }

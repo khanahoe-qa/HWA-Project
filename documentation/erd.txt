@@ -3,10 +3,10 @@
 skinparam linetype ortho
 
 entity "Rider" as rider {
-	* **rider_id : bigint <<generated>>**
+	* **id : bigint <<generated>>**
 	--
 	*name : varchar(30)
-	*age : smallint
+	age : smallint
 	sex : char
 }
 
@@ -15,19 +15,13 @@ entity "Race riders" as race_riders {
 	*race_id : bigint
 }
 
-entity "League" as league {
-	* **league_id : bigint**
-	--
-	* name : varchar(200)
-}
-
 entity "Race" as race {
-	* **race_id : bigint**
+	* **id : bigint <<generated>>**
 	--
 	* name : varchar(200)
+	type : varchar(30)
 }
 
 rider |o--o{ race_riders
 race_riders }o--o| race
-race }|--o| league
 @enduml
