@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.hwa.persistence.domain.Race;
+import com.qa.hwa.persistence.domain.Rider;
 import com.qa.hwa.persistence.dtos.RaceDTO;
 import com.qa.hwa.services.RaceService;
 
@@ -56,6 +57,16 @@ public class RaceController {
 	@PutMapping("/update")
 	public ResponseEntity<RaceDTO> update(@PathParam("id") Long id, @RequestBody Race race) {
 		return new ResponseEntity<RaceDTO>(this.service.updateRace(id, race), HttpStatus.ACCEPTED);
+	}
+	
+	@PutMapping("/addRider")
+	public ResponseEntity<RaceDTO> addRider(@PathParam("raceId") Long raceId, @PathParam("riderId") Long riderId) {
+		return new ResponseEntity<RaceDTO>(this.service.addRider(raceId, riderId), HttpStatus.ACCEPTED);
+	}
+	
+	@PutMapping("/removeRider")
+	public ResponseEntity<RaceDTO> removeRider(@PathParam("race_id") Long raceId, @PathParam("rider_id") Long riderId) {
+		return new ResponseEntity<RaceDTO>(this.service.removeRider(raceId, riderId), HttpStatus.ACCEPTED);
 	}
 	
 	// DELETE - DELETE
