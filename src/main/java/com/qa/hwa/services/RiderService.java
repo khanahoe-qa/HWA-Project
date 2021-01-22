@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qa.hwa.persistence.domain.Rider;
-import com.qa.hwa.persistence.domain.Rider;
-import com.qa.hwa.persistence.dtos.RiderDTO;
 import com.qa.hwa.persistence.dtos.RiderDTO;
 import com.qa.hwa.persistence.repo.RiderRepo;
 import com.qa.hwa.utils.MyBeanUtils;
@@ -51,7 +49,7 @@ public class RiderService {
 	public RiderDTO updateRider(Long id, Rider updated) {
 		Rider existing = this.repo.findById(id).orElseThrow();
 		existing.setName(updated.getName());
-		existing.setAge(updated.getAge());
+		existing.setDateOfBirth(updated.getDateOfBirth());
 		existing.setSex(updated.getSex());
 		existing.setRaces(updated.getRaces());
 		MyBeanUtils.mergeNotNull(updated, existing);
