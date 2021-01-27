@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.hwa.persistence.domain.Race;
-import com.qa.hwa.persistence.domain.Rider;
 import com.qa.hwa.persistence.dtos.RaceDTO;
 import com.qa.hwa.services.RaceService;
 
