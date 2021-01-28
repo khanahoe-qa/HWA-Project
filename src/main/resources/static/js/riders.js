@@ -128,7 +128,7 @@ const readOneRider = () => {
 
 
 const addToRace = () => {
-    fetch(`${BASE_URL}/race/addRider?raceId=${add_race_id}&riderId=${add_rider_id}`{
+    fetch(`${BASE_URL}/race/addRider?raceId=${add_race_id}&riderId=${add_rider_id}`,{
         method: `PUT`,
     })
     .then(
@@ -149,7 +149,7 @@ const addToRace = () => {
 }
 
 const removeFromRace = () => {
-    fetch(`${BASE_URL}/race/removeRider?raceId=${add_race_id}&riderId=${add_rider_id}`{
+    fetch(`${BASE_URL}/race/removeRider?raceId=${add_race_id}&riderId=${add_rider_id}`,{
         method: `PUT`,
     })
     .then(
@@ -170,24 +170,27 @@ const removeFromRace = () => {
 }
 
 function jsonToHtml(entry){
+    let div = document.createElement("div");
+    div.appendChild(document.createElement("hr"));
     let h = document.createElement("h4");
     let name = document.createTextNode(entry.name);
     h.appendChild(name);
 
-    let p1 = document.createElement("p");
+    let p = document.createElement("p");
+
     let id = document.createTextNode("Id: "+entry.id);
-    p1.appendChild(id);
-    h.appendChild(p1);
+    p.appendChild(id);
 
-    let p2 = document.createElement("p");
-    let dob = document.createTextNode("Date of birth: "+entry.dateOfBirth);
-    p2.appendChild(dob);
-    h.appendChild(p2);
+    console.log(entry.dateOfBirth);
+    let dobString = entry.dateOfBirth;
+    let dobDate = new Date(dobString);
+    let birthDate = document.createTextNode(", Date of birth: "+dobDate.toLocaleDateString("en-GB"));
+    p.appendChild(birthDate);
 
-    let p3 = document.createElement("p");
-    let sex = document.createTextNode("Sex: "+entry.sex);
-    p3.appendChild(sex);
-    h.appendChild(p3);
+    let sex = document.createTextNode(", Sex: "+entry.sex);
+    p.appendChild(sex);
+
+    h.appendChild(p);
 
     // let p4 = document.createTextNode("p");
     // let races = document.createTextNode(entry.races.name);
