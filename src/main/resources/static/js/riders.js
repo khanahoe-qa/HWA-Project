@@ -1,6 +1,6 @@
 "use strict";
 
-const BASE_URL = "http://localhost:8080/";
+const BASE_URL = "http://localhost:8080";
 
 const output = document.querySelector("#output");
 
@@ -46,7 +46,7 @@ const createRider = () => {
 }
 
 const updateRider = () => {
-    fetch(`${BASE_URL}rider/update?id=${update_id.value}`,{
+    fetch(`${BASE_URL}/rider/update?id=${update_id.value}`,{
         method: 'PUT',
         body: JSON.stringify({
             id: update_id.value,
@@ -64,7 +64,7 @@ const updateRider = () => {
 }
 
 const deleteRider = () => {
-    fetch(`${BASE_URL}rider/delete/${delete_id.value}`,{
+    fetch(`${BASE_URL}/rider/delete/${delete_id.value}`,{
         method: 'DELETE'
     })
     .then(
@@ -81,7 +81,6 @@ const deleteRider = () => {
 }
 
 const readAllRiders = () => {
-    console.log(`${BASE_URL}rider/readAll`);
     fetch(`${BASE_URL}rider/readAll`, {
         method: 'GET'
     })
@@ -106,7 +105,7 @@ const readAllRiders = () => {
 }
 
 const readOneRider = () => {
-    fetch(`${BASE_URL}rider/read/${readOne_id.value}`,{
+    fetch(`${BASE_URL}/rider/read/${readOne_id.value}`,{
         method: 'GET'
     })
     .then(
@@ -125,7 +124,6 @@ const readOneRider = () => {
     )
     .catch(err =>{console.error("Error fetching data")});
 }
-
 
 const addToRace = () => {
     fetch(`${BASE_URL}/race/addRider?raceId=${add_race_id}&riderId=${add_rider_id}`,{
@@ -197,7 +195,7 @@ function jsonToHtml(entry){
     // p4.appendChild(races);
     // h.appendChild(p4);
 
-    return h;
+    return div;
 }
 
 const createButton = document.querySelector("#create_button");

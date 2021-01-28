@@ -30,34 +30,102 @@ const createRace = () => {
 }
 
 const updateRace = () => {
-
+    fetch(`${BASE_URL}/race/update?id=${update_id.value}`,{
+        method: 'PUT',
+        body: JSON.stringify({
+            id: update_id.value,
+            name: update_name.value,
+            type: update_type.value
+        }),
+        headers: {
+            "Content-type": "application/json"
+        }
+    })
+    .then(response => response.json())
+    .then(json => console.log(json))
+    .catch(err => console.error("Failed to update entry"));
 }
 
 const deleteRace = () => {
-
+    fetch(`${BASE_URL}/race/delete/${delete_id.value}`,{
+        method: 'DELETE'
+    })
+    .then(
+        response => {
+            if(response.status !== 204){
+                console.error("Failed to delete race");
+            }
+            else{
+                console.log(`Deleted race with id ${delete_id.value}.`);
+            }
+        }
+    )
+    .catch(err => console.error("Error deleting data"));
 }
 
 const readOneRace = () => {
-
+    fetch(`${BASE_URL}/race/read/${readOne_id.value}`,{
+        method: 'GET'
+    })
+    .then(
+        response => {
+            if(response.status !== 200){
+                console.error("Error reading race")
+            }
+            else{
+                response.json().then(json => {
+                    console.log(json);
+                    output.appendChild(jsonToHtml(json));
+                }
+                )
+            }
+        }
+    )
+    .catch(err =>{console.error("Error fetching data")});
 }
 
 const readAllRaces = () => {
-
+    fetch(`${BASE_URL}race/readAll`, {
+        method: 'GET'
+    })
+    .then(
+        response => {
+            if(response.status !== 200){
+                console.error("Error reading races")
+            }
+            else{
+                response.json().then(json => {
+                    console.log(json);
+                    for(let i=0; i<json.length; i++){
+                        let entry = jsonToHtml(json[i]);
+                        output.appendChild(entry);
+                    }
+                }
+                )
+            }
+        }
+    )
+    .catch(err =>{console.error("Error fetching data")});
 }
 
 function jsonToHtml(entry){
-    let name = document.createTextNode("h4");
-    name.appendChild(entry.name);
-    let id = document.createTextNode("p");
-    id.appendChild(entry.id);
-    name.appendChild(id);
-    let type = document.createTextNode("p");
-    type.appendChild(entry.type);
-    name.appendChild(type);
-    let riders = document.createTextNode("p");
-    riders.appendChild(entry.riders);
-    name.appendChild(riders);
-    return name;
+    let div = document.createElement("div");
+    div.appendChild(document.createElement("hr"));
+    let h = document.createElement("h4");
+    let name = document.createTextNode(entry.name);
+    h.appendChild(name);
+
+    let p = document.createElement("p");
+
+    let id = document.createTextNode("Id: "+entry.id);
+    p.appendChild(id);
+
+    let type = document.createTextNode(", Type: "+entry.type);
+    p.appendChild(type);
+
+    h.appendChild(p);
+
+    return div;
 }
 
 const createButton = document.querySelector("#create_button");
