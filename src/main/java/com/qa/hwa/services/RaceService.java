@@ -71,7 +71,7 @@ public class RaceService {
 	public RaceDTO removeRider(Long raceId, Long riderId) {
 		Race existing = this.repo.findById(raceId).orElseThrow();
 		List<Rider> riders = existing.getRiders();
-		riders.remove(riderId.intValue());
+		riders.removeIf(rider -> rider.getId()==riderId);
 		existing.setRiders(riders);
 		return mapToDTO(this.repo.save(existing));
 	}
