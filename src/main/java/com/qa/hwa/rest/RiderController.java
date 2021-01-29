@@ -25,7 +25,6 @@ import com.qa.hwa.services.RiderService;
 public class RiderController {
 	
 	private RiderService service;
-	private static Long currentId = 0L;
 
 	@Autowired
 	public RiderController(RiderService service) {
@@ -40,15 +39,13 @@ public class RiderController {
 	}
 	
 	@GetMapping("/read/{id}")
-	public ResponseEntity<RiderDTO> readCat(@PathVariable("id") Long id) {
+	public ResponseEntity<RiderDTO> readRider(@PathVariable("id") Long id) {
 		return new ResponseEntity<RiderDTO>(this.service.readRider(id), HttpStatus.OK);
 	}
 	
 	// POST - CREATE
 	@PostMapping("/create")
 	public ResponseEntity<RiderDTO> create(@RequestBody Rider rider) {
-		rider.setId(currentId);
-		++currentId;
 		return new ResponseEntity<RiderDTO>(this.service.createRider(rider), HttpStatus.CREATED);
 	}
 	

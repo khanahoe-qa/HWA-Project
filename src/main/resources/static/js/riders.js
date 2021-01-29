@@ -21,15 +21,7 @@ const add_rider_id = document.querySelector("#add_rider_id");
 const add_race_id = document.querySelector("#add_race_id");
 
 const createRider = () => {
-    console.log(`name: ${create_name.value}, dob: ${create_dob.value}, sex: ${create_sex.value}`);
-    console.log(`${BASE_URL}rider/create`);
-    console.log(
-        JSON.stringify({
-        name: create_name.value,
-        dateOfBirth: create_dob.value,
-        sex: create_sex.value
-    }) )
-    fetch(`${BASE_URL}rider/create`, {
+    fetch(`${BASE_URL}/rider/create`, {
         method: 'POST',
         body: JSON.stringify({
             name: create_name.value,
@@ -81,7 +73,7 @@ const deleteRider = () => {
 }
 
 const readAllRiders = () => {
-    fetch(`${BASE_URL}rider/readAll`, {
+    fetch(`${BASE_URL}/rider/readAll`, {
         method: 'GET'
     })
     .then(
@@ -126,18 +118,17 @@ const readOneRider = () => {
 }
 
 const addToRace = () => {
-    fetch(`${BASE_URL}/race/addRider?raceId=${add_race_id}&riderId=${add_rider_id}`,{
+    fetch(`${BASE_URL}/race/addRider?raceId=${add_race_id.value}&riderId=${add_rider_id.value}`,{
         method: `PUT`,
     })
     .then(
         response => {
-            if(response.status !== 200){
+            if(response.status !== 202){
                 console.error("Error adding rider")
             }
             else{
                 response.json().then(json => {
                     console.log(json);
-                    output.appendChild(jsonToHtml(json));
                 }
                 )
             }
@@ -147,18 +138,17 @@ const addToRace = () => {
 }
 
 const removeFromRace = () => {
-    fetch(`${BASE_URL}/race/removeRider?raceId=${add_race_id}&riderId=${add_rider_id}`,{
+    fetch(`${BASE_URL}/race/removeRider?raceId=${add_race_id.value}&riderId=${add_rider_id.value}`,{
         method: `PUT`,
     })
     .then(
         response => {
-            if(response.status !== 200){
+            if(response.status !== 202){
                 console.error("Error removing rider")
             }
             else{
                 response.json().then(json => {
                     console.log(json);
-                    output.appendChild(jsonToHtml(json));
                 }
                 )
             }
@@ -188,7 +178,22 @@ function jsonToHtml(entry){
     let sex = document.createTextNode(", Sex: "+entry.sex);
     p.appendChild(sex);
 
+    p.appendChild(document.createTextNode(", Races: "));
+
+    for(let i=0; i<entry.races.length; ++i){
+        let raceName = null;
+        if(i === 0){
+            raceName = document.createTextNode(entry.races[i].name);
+        }
+        else{
+            raceName = document.createTextNode(", "+entry.races[i].name);
+        }
+        p.appendChild(raceName);
+    }
+
     h.appendChild(p);
+
+    div.appendChild(h);
 
     // let p4 = document.createTextNode("p");
     // let races = document.createTextNode(entry.races.name);
@@ -212,3 +217,9 @@ readAllButton.addEventListener("click", readAllRiders);
 
 const readOneButton = document.querySelector("#read_one_button");
 readOneButton.addEventListener("click", readOneRider);
+
+const addButton = document.querySelector("#add_rider_race_button");
+addButton.addEventListener("click", addToRace);
+
+const removeButton = document.querySelector("#remove_rider_race_button");
+removeButton.addEventListener("click", removeFromRace);

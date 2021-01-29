@@ -11,7 +11,7 @@ const update_type = document.querySelector("#update_type");
 
 const delete_id = document.querySelector("#delete_id");
 
-const read_id = document.querySelector("#read_id");
+const readOne_id = document.querySelector("#read_id");
 
 const createRace = () => {
     fetch(`${BASE_URL}/race/create`,{
@@ -85,7 +85,7 @@ const readOneRace = () => {
 }
 
 const readAllRaces = () => {
-    fetch(`${BASE_URL}race/readAll`, {
+    fetch(`${BASE_URL}/race/readAll`, {
         method: 'GET'
     })
     .then(
@@ -123,7 +123,22 @@ function jsonToHtml(entry){
     let type = document.createTextNode(", Type: "+entry.type);
     p.appendChild(type);
 
+    p.appendChild(document.createTextNode(", Riders: "));
+
+    for(let i=0; i<entry.riders.length; ++i){
+        let riderName = null;
+        if(i === 0){
+            riderName = document.createTextNode(entry.riders[i].name);
+        }
+        else{
+            riderName = document.createTextNode(", "+entry.riders[i].name);
+        }
+        p.appendChild(riderName);
+    }
+
     h.appendChild(p);
+
+    div.appendChild(h);
 
     return div;
 }
