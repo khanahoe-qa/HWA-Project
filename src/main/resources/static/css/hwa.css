@@ -1,0 +1,25 @@
+h2{
+    font-family:sans-serif;
+}
+
+p{
+    font-family:sans-serif;
+    font-size:large;
+}
+
+div.container > div.row > div.col-sm{
+    background-color: lightgrey;
+    margin: 20pt;
+    padding-top: 10pt;
+    padding-bottom: 10pt;
+    border-radius: 1%;
+}
+
+hr{
+    border-color: lightgrey;
+}
+
+#navbar > a{
+    font-family:sans-serif;
+    font-size:large;
+}

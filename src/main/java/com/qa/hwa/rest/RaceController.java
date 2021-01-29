@@ -25,7 +25,6 @@ import com.qa.hwa.services.RaceService;
 public class RaceController {
 	
 	private RaceService service;
-	private static Long currentId = 0L;
 
 	@Autowired
 	public RaceController(RaceService service) {
@@ -40,15 +39,13 @@ public class RaceController {
 	}
 	
 	@GetMapping("/read/{id}")
-	public ResponseEntity<RaceDTO> readCat(@PathVariable("id") Long id) {
+	public ResponseEntity<RaceDTO> readRace(@PathVariable("id") Long id) {
 		return new ResponseEntity<RaceDTO>(this.service.readRace(id), HttpStatus.OK);
 	}
 	
 	// POST - CREATE
 	@PostMapping("/create")
 	public ResponseEntity<RaceDTO> create(@RequestBody Race race) {
-		race.setId(currentId);
-		++currentId;
 		return new ResponseEntity<RaceDTO>(this.service.createRace(race), HttpStatus.CREATED);
 	}
 	

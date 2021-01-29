@@ -43,7 +43,7 @@ public class Rider {
 	private String name;
 	
 	@Column(name = "date_of_birth")
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date dateOfBirth;
 	
 	@Column(name = "sex")
