@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.qa.hwa.HwaProjectApplication;
 
-@SpringBootTest(classes = HwaProjectApplication.class)
+//@SpringBootTest(classes = HwaProjectApplication.class)
 public class RaceUnitTest {	
 	
 	Race testRace;

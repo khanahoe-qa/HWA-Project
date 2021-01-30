@@ -2,21 +2,40 @@ package com.qa.hwa.acceptanceTesting.pages;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HwaRidersPage {
 	
-	@FindAll(@FindBy(css = "#create_form > input"))
-	private List<WebElement> createInputs;
+	@FindBy(id = "create_name")
+	private WebElement createName;
+	
+	@FindBy(id = "create_dob")
+	private WebElement createDob;
+	
+	@FindBy(id = "create_sex")
+	private WebElement createSex;
 	
 	@FindBy(id = "create_button")
 	private WebElement createButton;
 	
-	@FindAll(@FindBy(css = "#update_form > input"))
-	private List<WebElement> updateInputs;
+	@FindBy(id = "update_id")
+	private WebElement updateId;
+	
+	@FindBy(id = "update_name")
+	private WebElement updateName;
+	
+	@FindBy(id = "update_dob")
+	private WebElement updateDob;
+	
+	@FindBy(id = "update_sex")
+	private WebElement updateSex;
 	
 	@FindBy(id = "update_button")
 	private WebElement updateButton;
@@ -48,36 +67,52 @@ public class HwaRidersPage {
 	@FindBy(id = "remove_rider_race_button")
 	private WebElement removeButton;
 	
+	@FindBy(id = "output")
+	private WebElement output;
+	
+	@FindBy(className = "information")
+	private WebElement info;
+	
 	public HwaRidersPage() {
 		
 	}
 	
-	public void createRider(WebDriver driver, List<String> toCreate) {
-		int i=0;
-		for(WebElement input: this.createInputs) {
-			if(input.getAttribute("id") == "create_button") {
-				continue;
-			}
-			else {
-			input.sendKeys(toCreate.get(i));
-			i++;
-			}
-		}
+	public Boolean createRider(WebDriver driver) {
+		
+		createName.sendKeys("Phil Space");
+		createDob.sendKeys("01011990");
+		Select selectSex = new Select(createSex);
+		selectSex.selectByValue("m");
+		System.out.println(createButton.getAttribute("value"));
+		new WebDriverWait(driver, 5).until(ExpectedConditions.elementToBeClickable(createButton));
+		System.out.println(this.createButton.getText());
 		this.createButton.click();
+		new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(info));
+		WebElement target = driver.findElement(By.className("information"));
+		if(target.findElement(By.tagName("h4")).getText().equals("Rider created")) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
-	public void updateRider(WebDriver driver, List<String> toUpdate) {
-		int i=0;
-		for(WebElement input: this.updateInputs) {
-			if(input.getAttribute("id") == "update_button") {
-				continue;
-			}
-			else {
-			input.sendKeys(toUpdate.get(i));
-			i++;
-			}
-		}
+	public Boolean updateRider(WebDriver driver) {
+		
+		this.updateId.sendKeys("1");
+		this.updateName.sendKeys("Polly Filla");
+		this.updateDob.sendKeys("02021992");
+		Select selectSex = new Select(this.updateSex);
+		selectSex.selectByValue("f");
 		this.updateButton.click();
+		new WebDriverWait(driver, 5).until(ExpectedConditions.visibilityOf(info));
+		WebElement target = driver.findElement(By.className("information"));
+		if(target.findElement(By.tagName("h4")).getText().equals("Rider created")) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
 	public void deleteRider(WebDriver driver, Long toDeleteId) {
