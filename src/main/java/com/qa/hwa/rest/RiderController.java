@@ -52,7 +52,7 @@ public class RiderController {
 	// PUT - UPDATE
 	@PutMapping("/update")
 	public ResponseEntity<RiderDTO> update(@PathParam("id") Long id, @RequestBody Rider rider) {
-		return new ResponseEntity<RiderDTO>(this.service.updateRider(id, rider), HttpStatus.ACCEPTED);
+		return new ResponseEntity<RiderDTO>(this.service.updateRider(id, rider), HttpStatus.OK);
 	}
 	
 	// DELETE - DELETE
