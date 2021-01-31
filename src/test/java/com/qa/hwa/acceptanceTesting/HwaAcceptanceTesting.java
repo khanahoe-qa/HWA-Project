@@ -18,8 +18,8 @@ import org.springframework.test.context.ActiveProfiles;
 import com.qa.hwa.HwaProjectApplication;
 import com.qa.hwa.acceptanceTesting.pages.HwaIndexPage;
 
-//@SpringBootTest(classes = HwaProjectApplication.class)
-//@ActiveProfiles(profiles = "reg")
+@SpringBootTest(classes = HwaProjectApplication.class)
+@ActiveProfiles(profiles = "reg")
 public class HwaAcceptanceTesting {
 
 	private static WebDriver driver;
@@ -32,6 +32,7 @@ public class HwaAcceptanceTesting {
 	}
 	
 	@Test
+	@Disabled
 	public void testCreateRider() {
 
 		HwaIndexPage website = PageFactory.initElements(driver, HwaIndexPage.class);
@@ -42,6 +43,7 @@ public class HwaAcceptanceTesting {
 	}
 	
 	@Test
+	@Disabled
 	public void testUpdateRider() {
 		
 		HwaIndexPage website = PageFactory.initElements(driver, HwaIndexPage.class);

@@ -5,8 +5,7 @@ INSERT INTO race(name, type) VALUES
 
 INSERT INTO rider(name, date_of_birth, sex) VALUES
 ('Phil Space', '1990-01-01 00:00:00', 'm'),
-('Polly Filla', '1992-02-02 00:00:00', 'f'),
-('Lazy Joe', '1994-04-04 00:00:00', 'm');
+('Polly Filla', '1992-02-02 00:00:00', 'f');
 
 --INSERT INTO rider_race(race_id, rider_id) VALUES
 --(1, 1),

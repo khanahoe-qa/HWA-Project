@@ -60,7 +60,7 @@ public class RiderControllerIntegrationTest {
 		Date myDate = new Date();
 		// BODGE
 		myDate.setTime(631152000000L);
-		Rider TEST_RIDER = new Rider(4L, "Xavier Tra", myDate, "m", races);
+		Rider TEST_RIDER = new Rider(3L, "Xavier Tra", myDate, "m", races);
 		
 		// Prepared REST request
 		MockHttpServletRequestBuilder mockRequest = 
@@ -107,26 +107,22 @@ public class RiderControllerIntegrationTest {
 	}
 	
 	@Test
-	@Disabled
+	//@Disabled
 	public void testReadAllRides() throws Exception {
 
 		List<Race> races = new ArrayList<>();
-		List<Rider> TEST_RIDERS = new ArrayList<>();
-		Calendar myCalendar1 = new GregorianCalendar(1990, 0, 1);
-		Date myDate1 = myCalendar1.getTime();
-		TEST_RIDERS.add(new Rider(1L, "Phil Space", myDate1, "m", races));
-		Calendar myCalendar2 = new GregorianCalendar(1992, 1, 2);
-		Date myDate2 = myCalendar2.getTime();
-		TEST_RIDERS.add(new Rider(2L, "Polly Filla", myDate2, "f", races));
-		Calendar myCalendar3 = new GregorianCalendar(1994, 3, 4);
-		Date myDate3 = myCalendar3.getTime();
-		TEST_RIDERS.add(new Rider(3L, "Lazy Joe", myDate3, "m", races));
+		List<RiderDTO> TEST_RIDERS = new ArrayList<>();
+		Date myDate1 = new Date();
+		myDate1.setTime(631152000000L);
+		TEST_RIDERS.add(new RiderDTO(1L, "Phil Space", myDate1, "m", races));
+		Date myDate2 = new Date();
+		myDate2.setTime(696988800000L);
+		TEST_RIDERS.add(new RiderDTO(2L, "Polly Filla", myDate2, "f", races));
 		
 		// Prepared REST request
 		MockHttpServletRequestBuilder mockRequest = 
 				MockMvcRequestBuilders.request(HttpMethod.GET, "/rider/readAll")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(this.jsonifier.writeValueAsString(TEST_RIDERS))
 				.accept(MediaType.APPLICATION_JSON);
 		
 		// Assertion checks

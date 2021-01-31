@@ -105,16 +105,6 @@ public class RaceControllerIntegrationTest {
 	public void testReadAllRaces() throws Exception {
 		
 		List<Rider> riders1 = new ArrayList<>();
-		//List<Rider> riders2 = new ArrayList<>();
-		//Calendar myCalendar1 = new GregorianCalendar(1990, 0, 1);
-		//Date myDate1 = myCalendar1.getTime();
-		//riders1.add(new Rider(1L, "Phil Space", myDate1, "m", null));
-		
-		//Calendar myCalendar2 = new GregorianCalendar(1992, 1, 2);
-		//Date myDate2 = myCalendar2.getTime();
-		//riders1.add(new Rider(1L, "Polly Filla", myDate2, "f", null));
-		//riders2.add(new Rider(1L, "Polly Filla", myDate2, "f", null));
-		
 		List<RaceDTO> TEST_RACELIST = new ArrayList<>();
 		TEST_RACELIST.add(new RaceDTO(1L, "Test race 1", "Road", riders1));
 		TEST_RACELIST.add(new RaceDTO(2L, "Test race 2", "Gravel", riders1));

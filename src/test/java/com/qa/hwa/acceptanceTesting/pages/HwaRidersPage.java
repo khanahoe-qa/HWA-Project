@@ -80,7 +80,7 @@ public class HwaRidersPage {
 	public Boolean createRider(WebDriver driver) {
 		
 		createName.sendKeys("Phil Space");
-		createDob.sendKeys("01011990");
+		createDob.sendKeys("01-01-1990");
 		Select selectSex = new Select(createSex);
 		selectSex.selectByValue("m");
 		System.out.println(createButton.getAttribute("value"));
