@@ -52,17 +52,17 @@ public class RaceController {
 	// PUT - UPDATE
 	@PutMapping("/update")
 	public ResponseEntity<RaceDTO> update(@PathParam("id") Long id, @RequestBody Race race) {
-		return new ResponseEntity<RaceDTO>(this.service.updateRace(id, race), HttpStatus.ACCEPTED);
+		return new ResponseEntity<RaceDTO>(this.service.updateRace(id, race), HttpStatus.OK);
 	}
 	
 	@PutMapping("/addRider")
 	public ResponseEntity<RaceDTO> addRider(@PathParam("raceId") Long raceId, @PathParam("riderId") Long riderId) {
-		return new ResponseEntity<RaceDTO>(this.service.addRider(raceId, riderId), HttpStatus.ACCEPTED);
+		return new ResponseEntity<RaceDTO>(this.service.addRider(raceId, riderId), HttpStatus.OK);
 	}
 	
 	@PutMapping("/removeRider")
-	public ResponseEntity<RaceDTO> removeRider(@PathParam("race_id") Long raceId, @PathParam("rider_id") Long riderId) {
-		return new ResponseEntity<RaceDTO>(this.service.removeRider(raceId, riderId), HttpStatus.ACCEPTED);
+	public ResponseEntity<RaceDTO> removeRider(@PathParam("raceId") Long raceId, @PathParam("riderId") Long riderId) {
+		return new ResponseEntity<RaceDTO>(this.service.removeRider(raceId, riderId), HttpStatus.OK);
 	}
 	
 	// DELETE - DELETE

@@ -24,7 +24,15 @@ const createRace = () => {
             "Content-type": "application/json"
         }
     })
-    .then(response => response.json())
+    .then(response => {
+        response.json();
+        if(response.status !== 201){
+            printErrorHtml("Error creating race");
+        }
+        else{
+            printInfoHtml("Race created");
+        }
+    })
     .then(json => console.log(json))
     .catch(err => console.error("Failed to create entry"));
 }
@@ -41,8 +49,24 @@ const updateRace = () => {
             "Content-type": "application/json"
         }
     })
-    .then(response => response.json())
+    .then(response => {
+        response.json();
+        if(response.status !== 200){
+            printErrorHtml("Error updating race");
+        }
+        else{
+            printInfoHtml("Race updated");
+        }
+    })
     .then(json => console.log(json))
+    .then(response => {
+        if(response.status !== 200){
+            printErrorHtml("Error updating race");
+        }
+        else{
+            printInfoHtml("Race updated");
+        }
+    })
     .catch(err => console.error("Failed to update entry"));
 }
 
@@ -54,9 +78,11 @@ const deleteRace = () => {
         response => {
             if(response.status !== 204){
                 console.error("Failed to delete race");
+                printErrorHtml("Failed to delete race");
             }
             else{
                 console.log(`Deleted race with id ${delete_id.value}.`);
+                printInfoHtml("Race deleted");
             }
         }
     )
@@ -70,7 +96,8 @@ const readOneRace = () => {
     .then(
         response => {
             if(response.status !== 200){
-                console.error("Error reading race")
+                console.error("Error reading race");
+                printErrorHtml("Error reading race");
             }
             else{
                 response.json().then(json => {
@@ -91,7 +118,9 @@ const readAllRaces = () => {
     .then(
         response => {
             if(response.status !== 200){
-                console.error("Error reading races")
+                console.error("Error reading races");
+                printErrorHtml("Error reading races");
+
             }
             else{
                 response.json().then(json => {
@@ -141,6 +170,26 @@ function jsonToHtml(entry){
     div.appendChild(h);
 
     return div;
+}
+
+function printErrorHtml(errorString){
+    let div = document.createElement("div");
+    div.setAttribute("class", "error");
+    let h = document.createElement("h4");
+    let message = document.createTextNode(errorString);
+    h.appendChild(message);
+    div.appendChild(h);
+    output.appendChild(div);
+}
+
+function printInfoHtml(infoString){
+    let div = document.createElement("div");
+    div.setAttribute("class", "information");
+    let h = document.createElement("h4");
+    let message = document.createTextNode(infoString);
+    h.appendChild(message);
+    div.appendChild(h);
+    output.appendChild(div);
 }
 
 const createButton = document.querySelector("#create_button");

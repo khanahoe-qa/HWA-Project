@@ -71,5 +71,43 @@ public class RiderDTO {
 		return "RiderDTO [id=" + id + ", name=" + name + ", dateOfBirth=" + dateOfBirth + ", sex=" + sex + ", races="
 				+ races + "]";
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RiderDTO other = (RiderDTO) obj;
+		if (dateOfBirth == null) {
+			if (other.dateOfBirth != null)
+				return false;
+		} else if (!dateOfBirth.equals(other.dateOfBirth))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (races == null) {
+			if (other.races != null)
+				return false;
+		} else if (!races.equals(other.races))
+			return false;
+		if (sex == null) {
+			if (other.sex != null)
+				return false;
+		} else if (!sex.equals(other.sex))
+			return false;
+		return true;
+	}
+	
 	
 }

@@ -5,9 +5,9 @@ skinparam linetype ortho
 entity "Rider" as rider {
 	* **id : bigint <<generated>>**
 	--
-	*name : varchar(30)
-	age : smallint
-	sex : char
+	*name : varchar(255)
+	date_of_birth : date
+	sex : varchar(1)
 }
 
 entity "Race riders" as race_riders {
@@ -18,7 +18,7 @@ entity "Race riders" as race_riders {
 entity "Race" as race {
 	* **id : bigint <<generated>>**
 	--
-	* name : varchar(200)
+	* name : varchar(255)
 	type : varchar(30)
 }
 

@@ -32,7 +32,15 @@ const createRider = () => {
             "Content-type": "application/json"
         }
     })
-    .then(response => response.json())
+    .then(response => {
+        response.json();
+        if(response.status !== 201){
+            printErrorHtml("Error creating rider");
+        }
+        else{
+            printInfoHtml("Rider created");
+        }
+    })
     .then(json => console.log(json))
     .catch(err => console.error("Error sending data"));
 }
@@ -50,7 +58,15 @@ const updateRider = () => {
             "Content-type": "application/json"
         }
     })
-    .then(response => response.json())
+    .then(response => {
+        response.json();
+        if(response.status !== 200){
+            printErrorHtml("Error updating rider");
+        }
+        else{
+            printInfoHtml("Rider updated");
+        }
+    })
     .then(json => console.log(json))
     .catch(err => console.error("Failed to update entry"));
 }
@@ -63,9 +79,11 @@ const deleteRider = () => {
         response => {
             if(response.status !== 204){
                 console.error("Failed to delete rider");
+                printErrorHtml("Failed to delete rider");
             }
             else{
                 console.log(`Deleted rider with id ${delete_id.value}.`);
+                printInfoHtml("Rider deleted")
             }
         }
     )
@@ -79,7 +97,8 @@ const readAllRiders = () => {
     .then(
         response => {
             if(response.status !== 200){
-                console.error("Error reading riders")
+                console.error("Error reading riders");
+                printErrorHtml("Error reading riders");
             }
             else{
                 response.json().then(json => {
@@ -103,7 +122,8 @@ const readOneRider = () => {
     .then(
         response => {
             if(response.status !== 200){
-                console.error("Error reading rider")
+                console.error("Error reading rider");
+                printErrorHtml("Error reading rider");
             }
             else{
                 response.json().then(json => {
@@ -123,14 +143,16 @@ const addToRace = () => {
     })
     .then(
         response => {
-            if(response.status !== 202){
-                console.error("Error adding rider")
+            if(response.status !== 200){
+                console.error("Error adding rider");
+                printErrorHtml("Error adding rider");
             }
             else{
                 response.json().then(json => {
                     console.log(json);
                 }
                 )
+                printInfoHtml("Rider added");
             }
         }
     )
@@ -143,14 +165,16 @@ const removeFromRace = () => {
     })
     .then(
         response => {
-            if(response.status !== 202){
-                console.error("Error removing rider")
+            if(response.status !== 200){
+                console.error("Error removing rider");
+                printErrorHtml("Error removing rider");
             }
             else{
                 response.json().then(json => {
                     console.log(json);
                 }
                 )
+                printInfoHtml("Rider removed");
             }
         }
     )
@@ -201,6 +225,26 @@ function jsonToHtml(entry){
     // h.appendChild(p4);
 
     return div;
+}
+
+function printErrorHtml(errorString){
+    let div = document.createElement("div");
+    div.setAttribute("class", "error");
+    let h = document.createElement("h4");
+    let message = document.createTextNode(errorString);
+    h.appendChild(message);
+    div.appendChild(h);
+    output.appendChild(div);
+}
+
+function printInfoHtml(infoString){
+    let div = document.createElement("div");
+    div.setAttribute("class", "information");
+    let h = document.createElement("h4");
+    let message = document.createTextNode(infoString);
+    h.appendChild(message);
+    div.appendChild(h);
+    output.appendChild(div);
 }
 
 const createButton = document.querySelector("#create_button");

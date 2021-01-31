@@ -1,0 +1,157 @@
+@startuml
+
+package "com.qa.hwa"{
+
+	ServletInitializer ..> HwaProjectApplication
+
+	class HwaProjectApplication{
+		+main(args : String[]) : void
+	}
+
+	class ServletInitializer{
+		#configure(application: SpringApplicationBuilder) : SpringApplicationBuilder
+	}
+
+    package com.qa.hwa.config{
+
+        class AppConfig{
+            +mapper() : ModelMapper
+        }
+    }
+
+	package com.qa.hwa.rest{
+
+		class RaceController{
+			-service : RaceService
+			+readAll() : ResponseEntity<List<RaceDTO>>
+            +readRace(id : Long) : ResponseEntity<RaceDTO>
+            +create(race : Race) : ResponseEntity<RaceDTO>
+            +update(id : Long, race : Race) : ResponseEntity<RaceDTO>
+            +addRider(raceId : Long, riderId : Long) : ResponseEntity<RaceDTO>
+            +removeRider(raceId : Long, riderId : Long) : ResponseEntity<RaceDTO>
+            +delete(id : Long) : ResponseEntity<RaceDTO>
+		}
+
+		class RiderController{
+			-service : RiderService
+			+readAll() : ResponseEntity<List<RiderDTO>>
+            +readRace(id : Long) : ResponseEntity<RiderDTO>
+            +create(race : Rider) : ResponseEntity<RiderDTO>
+            +update(id : Long, rider : Rider) : ResponseEntity<RiderDTO>
+            +delete(id : Long) : ResponseEntity<RiderDTO>
+		}
+	}
+
+    package com.qa.hwa.services{
+
+		RaceController ..|> RaceService
+		RiderController ..|> RiderService
+        RaceService ..> AppConfig
+        RiderService ..> AppConfig
+
+        class RaceService{
+            -repo : RaceRepo
+            -riderRepo : RiderRepo
+            -mapper : ModelMapper
+            -mapToDTO(model : Race) : RaceDTO
+            +readAllRaces() : List<RaceDTO>
+            +readRace(id : Long) : RaceDTO
+            +createRace(toCreate : Race) : RaceDTO
+            +updateRace(id : Long, updated : Race) : RaceDTO
+            +addRider(raceId : Long, riderId: Long) : RaceDTO
+            +removeRider(raceId : Long, riderId: Long) : RaceDTO
+            +deleteRace(id : Long) : Boolean
+        }
+
+        class RiderService{
+            -repo : RiderRepo
+            -mapper : ModelMapper
+            -mapToDTO(model : Rider) : RiderDTO
+            +readAllRiders() : List<RiderDTO>
+            +readRider(id : Long) : RiderDTO
+            +createRider(toCreate : Rider) : RiderDTO
+            +updateRider(id : Long, updated : Rider) : RiderDTO
+            +deleteRider(id : Long) : Boolean
+        }
+    }
+
+	package com.qa.hwa.persistence{
+
+		package com.qa.hwa.persistence.domain{
+
+			Race ..> Rider
+			Rider ..> Race
+		
+			class Race{
+				-id : Long
+				-name : String
+				-type : String
+                -riders : List<Rider>
+				+toString() : String
+				+equals(obj : Object) : Boolean
+			}
+
+			class Rider{
+				-id : Long
+				-name : String
+				-dateOfBirth : Date
+                -sex : String
+                -races : List<Race>
+				+toString() : String
+				+equals(obj : Object) : Boolean
+			}
+		}
+
+        package com.qa.hwa.persistence.dtos{
+
+            RaceDTO ..> Rider
+            RiderDTO ..> Race
+            RaceController ..> RaceDTO
+            RiderController ..> RiderDTO
+
+            class RaceDTO{
+				-id : Long
+				-name : String
+				-type : String
+                -riders : List<Rider>
+				+toString() : String
+				+equals(obj : Object) : Boolean
+			}
+
+			class RiderDTO{
+				-id : Long
+				-name : String
+				-dateOfBirth : Date
+                -sex : String
+                -races : List<Race>
+				+toString() : String
+				+equals(obj : Object) : Boolean
+			}
+        }
+
+        package com.qa.hwa.persistence.repo{
+
+            RaceRepo ..> RaceService
+            RiderRepo ..> RaceService
+            RiderRepo ..> RiderService
+
+            interface RaceRepo{
+            }
+
+            interface RiderRepo{
+            }
+        }
+	}
+
+	package com.qa.hwa.utils{
+	
+        RaceService ..> MyBeanUtils
+        RiderService ..> MyBeanUtils
+
+		class MyBeanUtils{
+			+mergeNotNull(source : Object, target : Object) : void
+            -getNullPropertyNames(source : Object) : String[]
+		}
+	}
+}
+@enduml
