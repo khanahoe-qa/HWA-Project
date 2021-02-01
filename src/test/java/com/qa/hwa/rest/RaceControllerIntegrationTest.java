@@ -180,7 +180,7 @@ public class RaceControllerIntegrationTest {
 		MockHttpServletRequestBuilder mockRequest1 = 
 				MockMvcRequestBuilders.request(HttpMethod.PUT, "/race/addRider?raceId="+RACE_ID+"&riderId=+"+RIDER_ID);
 		MockHttpServletRequestBuilder mockRequest2 =
-		MockMvcRequestBuilders.request(HttpMethod.PUT, "/race/addRider?raceId="+RACE_ID+"&riderId=+"+RIDER_ID);
+		MockMvcRequestBuilders.request(HttpMethod.PUT, "/race/removeRider?raceId="+RACE_ID+"&riderId=+"+RIDER_ID);
 		
 		// Assertion checks
 		ResultMatcher matchStatus = MockMvcResultMatchers.status().isOk();
